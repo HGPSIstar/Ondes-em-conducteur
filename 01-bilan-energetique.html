@@ -5,7 +5,7 @@
 <div class="legend"><label style="display:inline-flex;align-items:center;gap:5px"><input id="showE" type="checkbox" checked><i class="swatch" style="--c:#16834e"></i>Champ électrique Eᵧ</label>
 <label style="display:inline-flex;align-items:center;gap:5px"><input id="showB" type="checkbox" checked><i class="swatch" style="--c:#2067b2"></i>Champ magnétique B_z</label>
 <label style="display:inline-flex;align-items:center;gap:5px"><input id="showP" type="checkbox" checked><i class="swatch" style="--c:#cc6a12"></i>Vecteur de Poynting Πₓ</label>
-<label style="display:inline-flex;align-items:center;gap:5px"><input id="showJ" type="checkbox" checked><i class="swatch" style="--c:#b38700"></i>Courant Jᵧ</label>
+<label style="display:inline-flex;align-items:center;gap:5px"><input id="showJ" type="checkbox" checked><i class="swatch" style="--c:#b38700"></i>Courant Jᵧ (×)</label>
 <label style="display:inline-flex;align-items:center;gap:5px"><input id="showQ" type="checkbox" checked><i class="swatch" style="--c:#c22f36"></i>Puissance volumique Joule pⱼ</label></div>
 <div class="legend"><label><input id="showMeans" type="checkbox" checked> Superposer les moyennes temporelles de Πₓ et de pⱼ (pointillés)</label></div>
 <div class="actions"><button type="button" id="profilePlay" class="primary">▶ Lecture</button><button type="button" id="profileReset">↺ Recommencer</button></div>
@@ -21,7 +21,8 @@
 <path id="profileE" class="curve" stroke="#16834e" />
 <path id="profileB" class="curve" stroke="#2067b2"/>
 <path id="profileP" class="curve" stroke="#cc6a12" />
-<path id="profileJ" class="curve" stroke="#b38700" stroke-dasharray="3 4"/>
+<path id="profileJ" class="curve" stroke="#b38700"/>
+<path id="currentCrosses" fill="none" stroke="#b38700" stroke-width="2" stroke-linecap="round" aria-hidden="true"/>
 <path id="profileQ" class="curve" stroke="#c22f36" />
 <path id="meanP" class="curve" stroke="#cc6a12" stroke-dasharray="2 5"/>
 <path id="meanQ" class="curve" stroke="#c22f36" stroke-dasharray="2 5"/>
@@ -50,6 +51,18 @@ let phase=0, profileFrame=null, previous=null;
 function drawProfiles(){
   const delta=+$('delta').value;
   const y=value=>142.5-112.5*value;
+  const currentVisible=$('showJ').checked;
+  $('profileE').style.strokeWidth=currentVisible?'5.5':'';
+  $('profileJ').style.strokeWidth=$('showE').checked?'1.7':'';
+  $('currentCrosses').style.display=currentVisible?'':'none';
+  if(currentVisible){
+    let crosses='';
+    for(let x=0;x<=xmax;x+=.75){
+      const px=sx(x),py=y(Math.exp(-x/delta)*Math.cos(phase*Math.PI/180-x/delta));
+      crosses+=`M${px-4},${py-4}l8,8m-8,0l8,-8 `;
+    }
+    A('currentCrosses','d',crosses);
+  }
   $('profilePhase').textContent=Math.round(phase)+'°';
   for(const [id,value] of profiles){
     const visible=$('show'+id).checked;
