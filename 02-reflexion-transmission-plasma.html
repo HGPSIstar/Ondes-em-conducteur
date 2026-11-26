@@ -5,7 +5,7 @@
 <div class="workspace"><section class="card"><h2>Champs électriques : vide / plasma</h2><svg viewBox="0 0 940 370" role="img" aria-label="Ondes incidentes reflechies transmises"><defs><clipPath id="view"><rect x="68" y="45" width="806" height="265"/></clipPath></defs><rect x="68" y="45" width="358" height="265" fill="#f1f7fb"/><rect x="426" y="45" width="448" height="265" fill="#f5f7f9"/><path class="axis" d="M68 177H890"/><line class="boundary" x1="426" y1="45" x2="426" y2="310"/><text x="206" y="30">Vide</text><text x="605" y="30">Plasma</text><text x="868" y="197">x</text><text x="73" y="65">E(x,t)</text><text x="416" y="335" class="small">0</text><g clip-path="url(#view)"><path id="incident" class="curve" stroke="#269b61" stroke-dasharray="8 5"/><path id="reflected" class="curve" stroke="#d36a57" stroke-dasharray="8 5"/><path id="lefttotal" class="curve" stroke="#286d9e"/><path id="transmitted" class="curve" stroke="#286d9e"/></g></svg>
 <div class="legend"><span><i class="swatch" style="--c:#286d9e"></i>Champ total (vide et plasma)</span><span><i class="swatch dash" style="--c:#269b61"></i>Incidente</span><span><i class="swatch dash" style="--c:#d36a57"></i>Reflechie</span></div></section><section class="card"><h2>Coefficients de reflexion et transmission en puissance</h2><div class="powerbar"><div id="Rbar"></div><div id="Tbar"></div></div><div class="powerlabels"><span id="Rlabel">R</span><span id="Tlabel">T</span></div><p class="notes" id="energyinfo"></p></section></div></div></main><script>
 const $=id=>document.getElementById(id),fmt=(x,n=2)=>x.toFixed(n).replace('.',',');
-let running=false,previous=0,phase=0;
+let running=false,previous=null,phase=0,frameId;
 // Complex numbers as [real,imag]. Convention exp(i(ωt-kx)).
 const mul=(a,b)=>[a[0]*b[0]-a[1]*b[1],a[0]*b[1]+a[1]*b[0]];
 const div=(a,b)=>{const d=b[0]*b[0]+b[1]*b[1];return [(a[0]*b[0]+a[1]*b[1])/d,(a[1]*b[0]-a[0]*b[1])/d]};
@@ -29,9 +29,29 @@ function draw(){const r=+$('freq').value,tt=+$('time').value;
  P('incident',x=>wave(spec,x,tt,'incident'),-6.5,0);P('reflected',x=>wave(spec,x,tt,'reflected'),-6.5,0);
  P('lefttotal',x=>wave(spec,x,tt,'incident')+wave(spec,x,tt,'reflected'),-6.5,0);P('transmitted',x=>wave(spec,x,tt,'transmitted'),0,8.1);
  $('incident').style.display=$('parts').checked?'':'none';$('reflected').style.display=$('parts').checked?'':'none';}
-function stop(){running=false;$('play').textContent='▶ Lecture';}
-function frame(now){if(!running)return;if(previous){phase+=(now-previous)*.001*+$('speed').value*2; if(phase>18){stop();return;} $('time').value=phase;}previous=now;draw();requestAnimationFrame(frame)}
-$('play').onclick=()=>{running=!running;previous=0;$('play').textContent=running?'⏸ Pause':'▶ Lecture';if(running)requestAnimationFrame(frame)};
+function stop(){
+  running=false;
+  cancelAnimationFrame(frameId);
+  $('play').textContent='▶ Lecture';
+}
+function frame(now){
+  if(!running)return;
+  if(previous!==null){
+    const duration=+$('time').max;
+    phase=(phase+(now-previous)*.002*+$('speed').value)%duration;
+    $('time').value=phase;
+  }
+  previous=now;
+  draw();
+  frameId=requestAnimationFrame(frame);
+}
+$('play').onclick=()=>{
+  if(running){stop();return;}
+  running=true;
+  previous=null;
+  $('play').textContent='⏸ Pause';
+  frameId=requestAnimationFrame(frame);
+};
 $('reset').onclick=()=>{stop();phase=0;$('time').value=0;draw()};
 for(const id of ['freq','speed','parts'])$(id).addEventListener('input',draw);
 $('time').oninput=()=>{stop();phase=+$('time').value;draw()};draw();
