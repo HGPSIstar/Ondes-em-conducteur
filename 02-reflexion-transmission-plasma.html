@@ -4,13 +4,13 @@
 .mode{display:flex;gap:8px;margin:14px 0}.mode button.active{background:#286d9e;color:#fff}.powerlabels{display:flex;justify-content:space-between;gap:14px;font-weight:700;margin:10px 0;font-size:14px}.notes{font-size:13px;color:#506a80}svg .axis{stroke:#586f83}svg .curve{stroke-width:2.7}svg text{font-size:17px}.controls select{width:100%;padding:7px;font:inherit}[hidden]{display:none!important}</style><style>.course-nav{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}.course-nav a{display:inline-block;background:#fff;border:1px solid #b9cdd4;border-radius:8px;padding:10px 16px;color:#08798b;text-decoration:none;font:600 14px system-ui,sans-serif}.course-nav a:hover{background:#eaf5f5}</style></head><body><main><nav class="course-nav"><a href="index.html">← Animations du cours</a><a href="https://hgpsistar.github.io/Animations/">← Tous les cours</a></nav><div class="eyebrow">LYCEE HOCHE · PSI* · H. GEORGE</div><h1>Animation 02 — Réflexion et transmission d'un plasma</h1><p class="subtitle">Plasma froid ideal, sans collisions, incidence normale · comparaison des regimes evanescent et propagatif</p><div class="layout"><aside class="card controls"><h2>Signal incident</h2>
 <label for="signalMode">Type d’onde</label>
 <select id="signalMode"><option value="sine">Onde sinusoïdale</option><option value="packet">Paquet d’ondes gaussien</option></select>
-<label for="freq" id="frequencyLabel">Pulsation ω/ωₚ</label><span class="value" id="vfreq"></span><input id="freq" type="range" min="0.30" max="2.60" step=".01" value=".75">
+<label for="freq" id="frequencyLabel">Pulsation ω/ωₚ</label><span class="value" id="vfreq"></span><input id="freq" type="range" min="0.05" max="20" step=".01" value=".75">
 <div id="widthSettings" hidden>
 <label for="packetWidth">Largeur de l’enveloppe σωₚ/c</label>
 <output class="value" id="widthValue" for="packetWidth"></output>
-<input id="packetWidth" type="range" min="0.8" max="2.5" step="0.1" value="1.8">
+<input id="packetWidth" type="range" min="0.5" max="20" step="0.1" value="1.8">
 </div><label for="speed">Vitesse de lecture</label><span class="value" id="vspeed"></span><input id="speed" type="range" min="0.2" max="3" step=".1" value=".8"><label for="time">Temps réduit ωₚt</label><span class="value" id="vtime"></span><input id="time" type="range" min="0" max="18" step=".02" value="0"><div class="actions"><button id="play" class="primary">▶ Lecture</button><button id="reset">↺ Recommencer</button></div><label><input id="parts" type="checkbox" checked> Montrer les ondes incidente et reflechie</label><div class="pill" id="regime"></div></aside>
-<div class="workspace"><section class="card"><h2>Champs électriques : vide / plasma</h2><svg viewBox="0 0 940 370" role="img" aria-label="Ondes incidentes reflechies transmises"><defs><clipPath id="view"><rect x="68" y="45" width="806" height="265"/></clipPath></defs><rect x="68" y="45" width="358" height="265" fill="#f1f7fb"/><rect x="426" y="45" width="448" height="265" fill="#f5f7f9"/><path class="axis" d="M68 177H890"/><line class="boundary" x1="426" y1="45" x2="426" y2="310"/><text x="206" y="30">Vide</text><text x="605" y="30">Plasma</text><text x="868" y="197">x</text><text x="73" y="65">E(x,t)</text><text x="416" y="335" class="small">0</text><g clip-path="url(#view)"><path id="incident" class="curve" stroke="#269b61" stroke-dasharray="8 5"/><path id="reflected" class="curve" stroke="#d36a57" stroke-dasharray="8 5"/><path id="lefttotal" class="curve" stroke="#286d9e"/><path id="transmitted" class="curve" stroke="#286d9e"/></g></svg>
+<div class="workspace"><section class="card"><h2>Champs électriques : vide / plasma</h2><svg viewBox="0 0 940 370" role="img" aria-label="Ondes incidentes reflechies transmises"><defs><clipPath id="view"><rect x="68" y="45" width="806" height="265"/></clipPath></defs><rect x="68" y="45" width="358" height="265" fill="#f1f7fb"/><rect x="426" y="45" width="448" height="265" fill="#f5f7f9"/><path class="axis" d="M68 177H890"/><line class="boundary" x1="426" y1="45" x2="426" y2="310"/><text x="206" y="30">Vide</text><text x="605" y="30">Plasma</text><text x="867" y="197">xωₚ/c</text><text x="73" y="65">E(x,t)</text><text id="leftExtent" x="68" y="335" class="small">−6,5</text><text x="426" y="335" text-anchor="middle" class="small">0</text><text id="rightExtent" x="874" y="335" text-anchor="end" class="small">8,1</text><g clip-path="url(#view)"><path id="incident" class="curve" stroke="#269b61" stroke-dasharray="8 5"/><path id="reflected" class="curve" stroke="#d36a57" stroke-dasharray="8 5"/><path id="lefttotal" class="curve" stroke="#286d9e"/><path id="transmitted" class="curve" stroke="#286d9e"/></g></svg>
 <div class="legend"><span><i class="swatch" style="--c:#286d9e"></i>Champ total (vide et plasma)</span><span><i class="swatch dash" style="--c:#269b61"></i>Incidente</span><span><i class="swatch dash" style="--c:#d36a57"></i>Reflechie</span></div></section><section class="card"><h2 id="powerTitle">Réflexion et transmission en puissance</h2>
 <svg viewBox="0 0 860 320" role="img" aria-label="Coefficients de réflexion R et de transmission T en fonction de la pulsation réduite">
   <rect id="belowCutoff" x="74" y="35" height="220" fill="#eef3f7"/>
@@ -19,8 +19,8 @@
   <text x="24" y="41">100 %</text><text x="32" y="151">50 %</text><text x="41" y="261">0 %</text>
   <line id="cutoff" class="boundary" y1="35" y2="255"/>
   <text id="cutoffLabel" y="282" text-anchor="middle">1</text>
-  <text x="74" y="282" text-anchor="middle">0,30</text>
-  <text x="710" y="282" text-anchor="middle">2,60</text>
+  <text x="74" y="282" text-anchor="middle">0,05</text>
+  <text x="710" y="282" text-anchor="middle">20</text>
   <text id="powerFrequencyLabel" x="710" y="307" text-anchor="end">ω/ωₚ</text>
   <path id="reflectionCurve" class="curve" stroke="#b44e42"/>
   <path id="transmissionCurve" class="curve" stroke="#167851" stroke-dasharray="8 4"/>
@@ -53,8 +53,10 @@ function preparePowerCurves(){
   const width=packetMode()?+$('packetWidth').value:null;
   const samples=[];
   if(width!==null){
-    for(let i=0;i<=240;i++){
-      const w=frequencyMin+(frequencyMax-frequencyMin)*i/240;
+    const frequencies=new Set();
+    for(let i=0;i<=320;i++)frequencies.add(frequencyMin+(frequencyMax-frequencyMin)*i/320);
+    for(let i=0;i<=220;i++)frequencies.add(.7+.6*i/220);
+    for(const w of [...frequencies].sort((a,b)=>a-b)){
       samples.push([w,reflectionOfPacket(w,width)]);
     }
   }else{
@@ -81,8 +83,12 @@ function showPowerCoefficients(w,R,T){
 }
 // The positive-frequency spectrum of a real Gaussian-modulated cosine.
 function forPacketFrequency(carrier,width,visit){
-  const max=carrier+5/width;
-  for(const [a,b] of [[0,1],[1,max]]){
+  const min=Math.max(0,carrier-6/width);
+  const max=carrier+6/width;
+  // Integrate within the spectral band and split at the plasma cutoff.
+  const edges=[min,...(min<1&&max>1?[1]:[]),max];
+  for(let side=1;side<edges.length;side++){
+    const a=edges[side-1],b=edges[side];
     const count=84, dw=(b-a)/count;
     for(let i=0;i<count;i++){
       const w=a+(i+.5)*dw;
@@ -141,19 +147,26 @@ function wave(spec,x,t,kind){
   }
   return y;
 }
-function P(id,fn,a,b,n=560){let path='';for(let j=0;j<=n;j++){let x=a+(b-a)*j/n,y=fn(x);path+=(j?'L':'M')+(426+x*55).toFixed(2)+','+(177-77*y).toFixed(2)+' ';}$(id).setAttribute('d',path)}
+function P(id,fn,a,b,n=560,scale=1){let path='';for(let j=0;j<=n;j++){let x=a+(b-a)*j/n,y=fn(x);path+=(j?'L':'M')+(426+x*55/scale).toFixed(2)+','+(177-77*y).toFixed(2)+' ';}$(id).setAttribute('d',path)}
+const spatialScale=()=>packetMode()?Math.max(1,+$('packetWidth').value/2):1;
 function draw(){const r=+$('freq').value,tt=+$('time').value;
  $('vfreq').textContent=fmt(r);$('vtime').textContent=fmt(tt);$('vspeed').textContent=fmt(+$('speed').value,1)+'×';
  const packet=packetMode();
- const t=tt-(packet?5.5:4);
+ const width=+$('packetWidth').value;
+ const scale=spatialScale();
+ const t=tt-(packet?5.5*scale:4);
+ $('leftExtent').textContent='−'+fmt(6.5*scale,1);
+ $('rightExtent').textContent=fmt(8.1*scale,1);
  $('regime').textContent=packet
    ? (r<1?'Porteuse sous le seuil ωₚ.':r===1?'Porteuse au seuil ωₚ.':'Porteuse au-dessus du seuil ωₚ.')
    : (r<1?'ω < ωₚ : champ évanescent dans le plasma.':r===1?'ω = ωₚ : aucun flux moyen transmis.':'ω > ωₚ : onde propagative dans le plasma.');
- const n=packet?240:560;
- P('incident',x=>wave(currentSpectrum,x,t,'incident'),-6.5,0,n);
- P('reflected',x=>wave(currentSpectrum,x,t,'reflected'),-6.5,0,n);
- P('lefttotal',x=>wave(currentSpectrum,x,t,'incident')+wave(currentSpectrum,x,t,'reflected'),-6.5,0,n);
- P('transmitted',x=>wave(currentSpectrum,x,t,'transmitted'),0,8.1,n);
+ const left=-6.5*scale,right=8.1*scale;
+ const maxFrequency=packet?r+3/width:r;
+ const n=Math.max(packet?240:560,Math.ceil(8*right*maxFrequency/(2*Math.PI)));
+ P('incident',x=>wave(currentSpectrum,x,t,'incident'),left,0,n,scale);
+ P('reflected',x=>wave(currentSpectrum,x,t,'reflected'),left,0,n,scale);
+ P('lefttotal',x=>wave(currentSpectrum,x,t,'incident')+wave(currentSpectrum,x,t,'reflected'),left,0,n,scale);
+ P('transmitted',x=>wave(currentSpectrum,x,t,'transmitted'),0,right,n,scale);
  $('incident').style.display=$('parts').checked?'':'none';$('reflected').style.display=$('parts').checked?'':'none';}
 function stop(){
   running=false;
@@ -164,7 +177,7 @@ function frame(now){
   if(!running)return;
   if(previous!==null){
     const duration=+$('time').max;
-    phase=(phase+(now-previous)*.002*+$('speed').value)%duration;
+    phase=(phase+(now-previous)*.002*+$('speed').value*spatialScale())%duration;
     $('time').value=phase;
   }
   previous=now;
@@ -180,6 +193,9 @@ $('play').onclick=()=>{
 };
 $('reset').onclick=()=>{stop();phase=0;$('time').value=0;draw()};
 function updateWidth(){
+  $('time').max=packetMode()?24*spatialScale():18;
+  phase=Math.min(phase,+$('time').max);
+  $('time').value=phase;
   $('widthValue').textContent=fmt(+$('packetWidth').value,1);
   preparePowerCurves();
   updateIncident();
@@ -194,7 +210,6 @@ $('signalMode').onchange=()=>{
   $('energyinfo').textContent=packet
     ?'R et T sont les fractions de l’énergie incidente réfléchie et transmise, intégrées sur le spectre du paquet. Seules les composantes au-dessus de ωₚ transmettent de l’énergie. R + T = 1.'
     :'Pour ω ≤ ωₚ, toute la puissance incidente est réfléchie. Au-dessus du seuil, T augmente et R diminue. R + T = 1.';
-  $('time').max=packet?24:18;
   phase=0;
   previous=null;
   $('time').value=0;
