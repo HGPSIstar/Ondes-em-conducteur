@@ -4,7 +4,7 @@
 .mode{display:flex;gap:8px;margin:14px 0}.mode button.active{background:#286d9e;color:#fff}.powerlabels{display:flex;justify-content:space-between;gap:14px;font-weight:700;margin:10px 0;font-size:14px}.notes{font-size:13px;color:#506a80}svg .axis{stroke:#586f83}svg .curve{stroke-width:2.7}svg text{font-size:17px}.controls select{width:100%;padding:7px;font:inherit}[hidden]{display:none!important}</style><style>.course-nav{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 18px}.course-nav a{display:inline-block;background:#fff;border:1px solid #b9cdd4;border-radius:8px;padding:10px 16px;color:#08798b;text-decoration:none;font:600 14px system-ui,sans-serif}.course-nav a:hover{background:#eaf5f5}</style></head><body><main><nav class="course-nav"><a href="index.html">← Animations du cours</a><a href="https://hgpsistar.github.io/Animations/">← Tous les cours</a></nav><div class="eyebrow">LYCEE HOCHE · PSI* · H. GEORGE</div><h1>Animation 02 — Réflexion et transmission d'un plasma</h1><p class="subtitle">Plasma froid ideal, sans collisions, incidence normale · comparaison des regimes evanescent et propagatif</p><div class="layout"><aside class="card controls"><h2>Signal incident</h2>
 <label for="signalMode">Type d’onde</label>
 <select id="signalMode"><option value="sine">Onde sinusoïdale</option><option value="packet">Paquet d’ondes gaussien</option></select>
-<label for="freq" id="frequencyLabel">Pulsation ω/ωₚ</label><span class="value" id="vfreq"></span><input id="freq" type="range" min="0.05" max="20" step=".01" value=".75">
+<label for="freq" id="frequencyLabel">Pulsation ω/ωₚ</label><span class="value" id="vfreq"></span><input id="freq" type="range" min="0.05" max="10" step=".01" value=".75">
 <div id="widthSettings" hidden>
 <label for="packetWidth">Largeur de l’enveloppe σωₚ/c</label>
 <output class="value" id="widthValue" for="packetWidth"></output>
@@ -20,7 +20,7 @@
   <line id="cutoff" class="boundary" y1="35" y2="255"/>
   <text id="cutoffLabel" y="282" text-anchor="middle">1</text>
   <text x="74" y="282" text-anchor="middle">0,05</text>
-  <text x="710" y="282" text-anchor="middle">20</text>
+  <text x="710" y="282" text-anchor="middle">10</text>
   <text id="powerFrequencyLabel" x="710" y="307" text-anchor="end">ω/ωₚ</text>
   <path id="reflectionCurve" class="curve" stroke="#b44e42"/>
   <path id="transmissionCurve" class="curve" stroke="#167851" stroke-dasharray="8 4"/>
